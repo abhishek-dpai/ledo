@@ -1,5 +1,11 @@
 .App {
   text-align: center;
 }
-/* .table-container {
-} */
+.table-container {
+  overflow: scroll;
+  height: 90vh;
+  width: 95%;
+}
+.main-buttons {
+  text-align: left;
+}
