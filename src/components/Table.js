@@ -20,7 +20,19 @@ function Table() {
             return (
               <tr key={image.id}>
                 {attributesName.map((attribute) => {
-                  return <td> {image[attribute]} </td>;
+                  if (attribute === "coco_url" || attribute === "flickr_url")
+                    return (
+                      <td>
+                        {" "}
+                        <img
+                          src={image[attribute]}
+                          alt={attribute}
+                          height="200"
+                          width="200"
+                        />{" "}
+                      </td>
+                    );
+                  else return <td> {image[attribute]} </td>;
                 })}
               </tr>
             );
