@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-function Filter() {
+
+function Filter(props) {
+  console.log("props are",props)
   const [filter, setFilter] = useState("none");
-  function handleFilterChange(event) {
-    const [value] = event.target;
-    setFilter(value);
+  const handleFilterChange = (event)=> {
+    console.log(event.target.value)
+    setFilter(event.target.value);
     console.log("filter is=", filter);
   }
-  console.log("In Filter component");
+  console.log("In Filter component",filter);
   return (
-    <select value={filter} onChange={handleFilterChange}>
-      <option value="">{filter === "none" ? "Add Filter" : { filter }}</option>
-      <option value="license">License</option>
+    <select value={filter} onChange={(e)=>handleFilterChange(e)}>
+      {/* <option value={filter}>{filter === "none" ? "Add Filter" : filter }</option> */}
+      <option value="">None</option>
       <option value="file_name">File_name</option>
       <option value="coco_url">Coco_url</option>
       <option value="height">Height</option>
