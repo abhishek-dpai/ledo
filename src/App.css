@@ -9,3 +9,7 @@
 .main-buttons {
   text-align: left;
 }
+.setting {
+  display: inline;
+  padding-right: 20px;
+}

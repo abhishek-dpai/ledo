@@ -22,11 +22,17 @@ function Table() {
   console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
+    setShowSorting(false);
+    setShowDisplaySetting(false);
   }
   function handleSortingClick() {
+    setShowFilter(false);
     setShowSorting(true);
+    setShowDisplaySetting(false);
   }
   function handleDisplaySettingClick() {
+    setShowFilter(false);
+    setShowSorting(false);
     setShowDisplaySetting(true);
   }
   return (
