@@ -116,7 +116,7 @@ function Table() {
           </tbody>
         </table>
         <Pagination
-          itemsCount={images.length}
+          itemsCount={images.size}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}

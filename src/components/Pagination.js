@@ -5,6 +5,7 @@ function Pagination(props) {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
   const pages = _.range(1, pagesCount + 1);
+  console.log("props in pagination=", props);
   console.log("currentPage =", currentPage);
   console.log("pagesCount=", pagesCount);
   return (
