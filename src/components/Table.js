@@ -25,7 +25,7 @@ function Table() {
   const [showSorting, setShowSorting] = useState(false);
   const [showDisplaySetting, setShowDisplaySetting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(3);
+  const [pageSize] = useState(5);
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
