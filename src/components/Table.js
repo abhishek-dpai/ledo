@@ -5,6 +5,9 @@ import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
 function Table() {
   // You can use below imageMap to poppulate data, it wont contain any duplicate images
+  // const [filteredImages]
+  // write a function , get the result
+  // later named anything handleFilteredResult should set the filter state then use the useMemo to get the filtered images
   const images = useMemo(() => {
     const imageMap = new Map();
     trimmed_keypoints.images.forEach((item) => {
@@ -22,29 +25,38 @@ function Table() {
   console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
-    setShowSorting(false);
-    setShowDisplaySetting(false);
+    // setShowSorting(false);
+    // setShowDisplaySetting(false);
   }
   function handleSortingClick() {
-    setShowFilter(false);
+    // setShowFilter(false);
     setShowSorting(true);
-    setShowDisplaySetting(false);
+    // setShowDisplaySetting(false);
   }
   function handleDisplaySettingClick() {
-    setShowFilter(false);
-    setShowSorting(false);
+    // setShowFilter(false);
+    // setShowSorting(false);
     setShowDisplaySetting(true);
   }
   return (
     <>
       <div className="main-buttons">
-        <button onClick={handleFilterClick}> Filter </button>
-        <button onClick={handleSortingClick}>Sorting</button>
-        <button onClick={handleDisplaySettingClick}>Display Setting </button>
+        <button className="button" onClick={handleFilterClick}>
+          {" "}
+          Filter{" "}
+        </button>
+        <button className="button" onClick={handleSortingClick}>
+          Sorting
+        </button>
+        <button className="button" onClick={handleDisplaySettingClick}>
+          Display Setting{" "}
+        </button>
         <br />
-        {showFilter && <Filter />}
-        {showSorting && <Sorting />}
-        {showDisplaySetting && <DisplaySetting />}
+        {showFilter && <Filter attributesName={attributesName} />}
+        {showSorting && <Sorting attributesName={attributesName} />}
+        {showDisplaySetting && (
+          <DisplaySetting attributesName={attributesName} />
+        )}
       </div>
       <div className="table-container">
         <table className="table">

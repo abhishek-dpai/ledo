@@ -1,15 +1,34 @@
 .App {
   text-align: center;
+  background-color: #8cbdc5;
 }
 .table-container {
+  margin-left: 10px;
   overflow: scroll;
-  height: 90vh;
-  width: 95%;
+  height: 80vh;
+  width: 98%;
+  background-color: cornsilk;
 }
 .main-buttons {
   text-align: left;
 }
 .setting {
   display: inline;
-  padding-right: 20px;
+  margin: 20px;
+}
+.filter-choice {
+  margin: 20px;
+  color: rgb(16, 112, 7);
+  /* background-color: #e7b3b3; */
+}
+.display-setting-container {
+  margin: 20px;
+}
+.button {
+  margin: 20px;
+  background-color: #e7b3b3;
+}
+.sorting {
+  color: blue;
+  margin: 20px;
 }
