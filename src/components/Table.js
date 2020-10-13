@@ -38,6 +38,9 @@ function Table() {
     // setShowSorting(false);
     setShowDisplaySetting(true);
   }
+  // function handleOutputImagesAttributes(attributesToHide){
+  //   setOutputImagesAttributes(outputImagesAttribute)
+  // }
   return (
     <>
       <div className="main-buttons">
@@ -55,7 +58,10 @@ function Table() {
         {showFilter && <Filter attributesName={attributesName} />}
         {showSorting && <Sorting attributesName={attributesName} />}
         {showDisplaySetting && (
-          <DisplaySetting attributesName={attributesName} />
+          <DisplaySetting
+            attributesName={attributesName}
+            // handleOutputImagesAttributes={handleOutputImagesAttributes}
+          />
         )}
       </div>
       <div className="table-container">
@@ -73,15 +79,15 @@ function Table() {
                 <tr key={image.id}>
                   {attributesName.map((attribute) => {
                     if (attribute === "coco_url" || attribute === "flickr_url")
+                      //Can use regex for dynamic url attributes for images {*_url} !!!
                       return (
                         <td>
-                          {" "}
                           <img
                             src={image[attribute]}
                             alt={attribute}
                             height="200"
                             width="200"
-                          />{" "}
+                          />
                         </td>
                       );
                     else return <td> {image[attribute]} </td>;

@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 function DisplaySetting(props) {
-  const [displaySetting, setDisplaySetting] = useState("none");
   // const [displaySettingComponent, setDisplaySettingComponent] = useState("none");
-  const { attributesName } = props;
-  const handleDisplaySettingChange = (event) => {
-    setDisplaySetting(event.target.value);
-    console.log(event.target.value);
+  const { attributesName, handleOutputImagesAttributes } = props;
+  // const [attributesToHide, setAttributesToHide] = useState([]);
 
-    console.log("displaySetting is=", displaySetting);
+  const [attributesToShow, setAttributesToShow] = useState(attributesName);
+  const handleDisplaySettingChange = (event) => {
+    const { name, value } = event.target;
+
+    attributesToShow.includes(name) === true
+      ? setAttributesToShow(
+          attributesToShow.filter((attribute) => {
+            if (attribute === name) return false;
+            else return true;
+          })
+        )
+      : setAttributesToShow([...attributesToShow, name]);
+
+    console.log("value=", value);
+    console.log("name=", name);
+    console.log("in DisplaySetting attributesToShow=", attributesToShow);
     //   console.log("displaySettingComponent is=", displaySettingComponent);
   };
-  console.log("In DisplaySetting component displaySetting=", displaySetting);
+
+  console.log("before return attributesToShow=", attributesToShow);
+  // useEffect(() => {
+  //   console.log("in UseEffect attributesToShow=", attributesToShow);
+  //   handleImagesAttributes(attributesToShow);
+  // }, [attributesToShow]);
+
   return (
     <div className="display-setting-container">
       <button>Hide Columns</button>
@@ -19,7 +37,11 @@ function DisplaySetting(props) {
         return (
           <div className="setting">
             <label for={attribute}>{attribute}</label>
-            <input type="checkbox" name={attribute} />
+            <input
+              type="checkbox"
+              onClick={handleDisplaySettingChange}
+              name={attribute}
+            />
           </div>
         );
       })}
