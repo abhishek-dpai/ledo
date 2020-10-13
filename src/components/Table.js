@@ -3,6 +3,8 @@ import trimmed_keypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
+import Pagination from "./Pagination";
+import Paginate, { paginate } from "./Paginate";
 function Table() {
   // You can use below imageMap to poppulate data, it wont contain any duplicate images
   // const [filteredImages]
@@ -22,9 +24,12 @@ function Table() {
   const [showFilter, setShowFilter] = useState(false);
   const [showSorting, setShowSorting] = useState(false);
   const [showDisplaySetting, setShowDisplaySetting] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(3);
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
+
   console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
@@ -45,6 +50,15 @@ function Table() {
     console.log("came in handle output images attributes");
     setOutputImagesAttributes(attributesToShow);
   }
+  function handlePageChange(page) {
+    setCurrentPage(page);
+    console.log("in handlePageChange page= ", page);
+  }
+  const pageImages = paginate(
+    Array.from(images.values()),
+    currentPage,
+    pageSize
+  );
   return (
     <>
       <div className="main-buttons">
@@ -78,7 +92,7 @@ function Table() {
             </tr>
           </thead>
           <tbody>
-            {Array.from(images.values()).map((image) => {
+            {pageImages.map((image) => {
               return (
                 <tr key={image.id}>
                   {outputImagesAttributes.map((attribute) => {
@@ -101,6 +115,12 @@ function Table() {
             })}
           </tbody>
         </table>
+        <Pagination
+          itemsCount={images.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </>
   );
