@@ -22,6 +22,9 @@ function Table() {
   const [showFilter, setShowFilter] = useState(false);
   const [showSorting, setShowSorting] = useState(false);
   const [showDisplaySetting, setShowDisplaySetting] = useState(false);
+  const [outputImagesAttributes, setOutputImagesAttributes] = useState(
+    Object.keys(images.values().next().value)
+  );
   console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
@@ -38,9 +41,10 @@ function Table() {
     // setShowSorting(false);
     setShowDisplaySetting(true);
   }
-  // function handleOutputImagesAttributes(attributesToHide){
-  //   setOutputImagesAttributes(outputImagesAttribute)
-  // }
+  function handleOutputImagesAttributes(attributesToShow) {
+    console.log("came in handle output images attributes");
+    setOutputImagesAttributes(attributesToShow);
+  }
   return (
     <>
       <div className="main-buttons">
@@ -60,7 +64,7 @@ function Table() {
         {showDisplaySetting && (
           <DisplaySetting
             attributesName={attributesName}
-            // handleOutputImagesAttributes={handleOutputImagesAttributes}
+            handleOutputImagesAttributes={handleOutputImagesAttributes}
           />
         )}
       </div>
@@ -68,7 +72,7 @@ function Table() {
         <table className="table">
           <thead>
             <tr>
-              {attributesName.map((attribute) => {
+              {outputImagesAttributes.map((attribute) => {
                 return <th key={attribute}> {attribute} </th>;
               })}
             </tr>
@@ -77,7 +81,7 @@ function Table() {
             {Array.from(images.values()).map((image) => {
               return (
                 <tr key={image.id}>
-                  {attributesName.map((attribute) => {
+                  {outputImagesAttributes.map((attribute) => {
                     if (attribute === "coco_url" || attribute === "flickr_url")
                       //Can use regex for dynamic url attributes for images {*_url} !!!
                       return (

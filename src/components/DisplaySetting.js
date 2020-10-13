@@ -25,10 +25,10 @@ function DisplaySetting(props) {
   };
 
   console.log("before return attributesToShow=", attributesToShow);
-  // useEffect(() => {
-  //   console.log("in UseEffect attributesToShow=", attributesToShow);
-  //   handleImagesAttributes(attributesToShow);
-  // }, [attributesToShow]);
+  useEffect(() => {
+    console.log("in UseEffect attributesToShow=", attributesToShow);
+    handleOutputImagesAttributes(attributesToShow);
+  }, [attributesToShow]);
 
   return (
     <div className="display-setting-container">
