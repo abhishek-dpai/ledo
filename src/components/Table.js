@@ -4,7 +4,7 @@ import Filter from "./Filter";
 import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
 import Pagination from "./Pagination";
-import { paginate } from "./Paginate";
+import { paginate } from "../utils/Paginate";
 function Table() {
   const images = useMemo(() => {
     const imageMap = new Map();
