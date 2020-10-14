@@ -22,20 +22,19 @@ function DisplaySetting(props) {
     console.log("name=", name);
     console.log("in DisplaySetting tempAttributesArray=", tempAttributesArray);
     console.log("in DisplaySetting attributesToShow=", attributesToShow);
-  };
-  console.log("before return attributesToShow=", attributesToShow);
-  useEffect(() => {
     setTempAttributesArray(
       attributesName.filter((attribute) => {
         if (attributesToShow.includes(attribute)) return true;
         else return false;
       })
     );
+  };
+  console.log("before return attributesToShow=", attributesToShow);
+  useEffect(() => {
     // setAttributesToShow(tempAttributesArray);
-
     console.log("in UseEffect attributesToShow=", attributesToShow);
     handleOutputImagesAttributes(tempAttributesArray);
-  }, [attributesToShow]);
+  }, [tempAttributesArray]);
   return (
     <div className="display-setting-container">
       <button>Hide Columns</button>

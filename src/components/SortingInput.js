@@ -7,6 +7,7 @@ function SortingInput(props) {
 
     console.log("sortingChoice is=", sortingChoice);
   }
+
   return (
     <form className="sorting-input">
       <div>{sortingAttribute}</div>

@@ -3,6 +3,7 @@ function Pagination(props) {
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
+  // array methods fill
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
   return (
     <nav>

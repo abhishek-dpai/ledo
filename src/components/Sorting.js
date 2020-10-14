@@ -13,6 +13,7 @@ function Sorting(props) {
     console.log("sortingAttribute is=", sortingAttribute);
     //   console.log("sortingComponent is=", sortingComponent);
   };
+
   console.log("In sorting component sortingAttribute=", sortingAttribute);
   return (
     <div className="sorting">
