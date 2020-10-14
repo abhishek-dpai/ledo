@@ -1,12 +1,10 @@
 import React from "react";
-import _ from "lodash";
 function Pagination(props) {
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
-  const pages = _.range(1, pagesCount + 1);
-  console.log("currentPage =", currentPage);
-  console.log("pagesCount=", pagesCount);
+  // array methods fill
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
   return (
     <nav>
       <ul className="pagination">

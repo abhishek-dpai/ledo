@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 function DisplaySetting(props) {
-  // const [displaySettingComponent, setDisplaySettingComponent] = useState("none");
   const { attributesName, handleOutputImagesAttributes } = props;
-  // const [attributesToHide, setAttributesToHide] = useState([]);
-
   const [attributesToShow, setAttributesToShow] = useState(attributesName);
+  const [tempAttributes, setTempAttributes] = useState(attributesName);
   const handleDisplaySettingChange = (event) => {
     const { name, value } = event.target;
-
-    attributesToShow.includes(name) === true
+    attributesToShow.includes(name)
       ? setAttributesToShow(
           attributesToShow.filter((attribute) => {
             if (attribute === name) return false;
@@ -20,16 +17,18 @@ function DisplaySetting(props) {
 
     console.log("value=", value);
     console.log("name=", name);
+    console.log("in DisplaySetting tempAttributesArray=", tempAttributes);
     console.log("in DisplaySetting attributesToShow=", attributesToShow);
-    //   console.log("displaySettingComponent is=", displaySettingComponent);
+    setTempAttributes(
+      attributesName.filter((attribute) => {
+        if (attributesToShow.includes(attribute)) return true;
+        else return false;
+      })
+    );
   };
-
-  console.log("before return attributesToShow=", attributesToShow);
   useEffect(() => {
-    console.log("in UseEffect attributesToShow=", attributesToShow);
-    handleOutputImagesAttributes(attributesToShow);
-  }, [attributesToShow]);
-
+    handleOutputImagesAttributes(tempAttributes);
+  }, [tempAttributes, handleOutputImagesAttributes]);
   return (
     <div className="display-setting-container">
       <button>Hide Columns</button>

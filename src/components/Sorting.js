@@ -1,23 +1,26 @@
 import React, { useState } from "react";
+import SortingInput from "./SortingInput";
 function Sorting(props) {
-  const [sorting, setSorting] = useState("none");
-  // const [sortingComponent, setSortingComponent] = useState("none");
+  const [sortingAttribute, setSortingAttribute] = useState("none");
+  const [sortingOrder, setSortingOrder] = useState([]);
+  const [showSortinginput, setShowSortinginput] = useState(false);
   const { attributesName } = props;
   const handleSortingChange = (event) => {
-    setSorting(event.target.value);
+    setSortingAttribute(event.target.value);
     console.log(event.target.value);
-
-    console.log("sorting is=", sorting);
-    //   console.log("sortingComponent is=", sortingComponent);
+    setShowSortinginput(true);
+    console.log("sortingAttribute is=", sortingAttribute);
   };
-  console.log("In sorting component sorting=", sorting);
+
+  console.log("In sorting component sortingAttribute=", sortingAttribute);
   return (
     <div className="sorting">
-      <select value={sorting} onChange={(e) => handleSortingChange(e)}>
+      <select value={sortingAttribute} onChange={(e) => handleSortingChange(e)}>
         {attributesName.map((attribute) => {
           return <option value={attribute}>{attribute}</option>;
         })}
       </select>
+      {showSortinginput && <SortingInput sortingAttribute={sortingAttribute} />}
     </div>
   );
 }
