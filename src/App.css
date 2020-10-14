@@ -1,13 +1,13 @@
 .App {
   text-align: center;
-  background-color: #8cbdc5;
+  background-color: #617a67;
 }
 .table-container {
   margin-left: 10px;
   overflow: scroll;
   height: 80vh;
   width: 98%;
-  background-color: cornsilk;
+  background-color: white;
 }
 .main-buttons {
   text-align: left;

@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 function DisplaySetting(props) {
-  // const [displaySettingComponent, setDisplaySettingComponent] = useState("none");
   const { attributesName, handleOutputImagesAttributes } = props;
-  // const [attributesToHide, setAttributesToHide] = useState([]);
-
   const [attributesToShow, setAttributesToShow] = useState(attributesName);
   const handleDisplaySettingChange = (event) => {
     const { name, value } = event.target;
-
     attributesToShow.includes(name) === true
       ? setAttributesToShow(
           attributesToShow.filter((attribute) => {
@@ -17,19 +13,15 @@ function DisplaySetting(props) {
           })
         )
       : setAttributesToShow([...attributesToShow, name]);
-
     console.log("value=", value);
     console.log("name=", name);
     console.log("in DisplaySetting attributesToShow=", attributesToShow);
-    //   console.log("displaySettingComponent is=", displaySettingComponent);
   };
-
   console.log("before return attributesToShow=", attributesToShow);
   useEffect(() => {
     console.log("in UseEffect attributesToShow=", attributesToShow);
     handleOutputImagesAttributes(attributesToShow);
   }, [attributesToShow]);
-
   return (
     <div className="display-setting-container">
       <button>Hide Columns</button>
