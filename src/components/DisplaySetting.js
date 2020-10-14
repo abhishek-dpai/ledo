@@ -3,9 +3,7 @@ import "../App.css";
 function DisplaySetting(props) {
   const { attributesName, handleOutputImagesAttributes } = props;
   const [attributesToShow, setAttributesToShow] = useState(attributesName);
-  const [tempAttributesArray, setTempAttributesArray] = useState(
-    attributesName
-  );
+  const [tempAttributes, setTempAttributes] = useState(attributesName);
   const handleDisplaySettingChange = (event) => {
     const { name, value } = event.target;
     attributesToShow.includes(name)
@@ -16,25 +14,21 @@ function DisplaySetting(props) {
           })
         )
       : setAttributesToShow([...attributesToShow, name]);
-    console.log("in DisplaySetting before attributesToShow=", attributesToShow);
 
     console.log("value=", value);
     console.log("name=", name);
-    console.log("in DisplaySetting tempAttributesArray=", tempAttributesArray);
+    console.log("in DisplaySetting tempAttributesArray=", tempAttributes);
     console.log("in DisplaySetting attributesToShow=", attributesToShow);
-    setTempAttributesArray(
+    setTempAttributes(
       attributesName.filter((attribute) => {
         if (attributesToShow.includes(attribute)) return true;
         else return false;
       })
     );
   };
-  console.log("before return attributesToShow=", attributesToShow);
   useEffect(() => {
-    // setAttributesToShow(tempAttributesArray);
-    console.log("in UseEffect attributesToShow=", attributesToShow);
-    handleOutputImagesAttributes(tempAttributesArray);
-  }, [tempAttributesArray]);
+    handleOutputImagesAttributes(tempAttributes);
+  }, [tempAttributes, handleOutputImagesAttributes]);
   return (
     <div className="display-setting-container">
       <button>Hide Columns</button>
