@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "../App.css";
+
 function DisplaySetting(props) {
   const { attributesName, handleOutputImagesAttributes } = props;
   const [attributesToShow, setAttributesToShow] = useState(attributesName);
   const [tempAttributes, setTempAttributes] = useState(attributesName);
-  const handleDisplaySettingChange = (event) => {
-    const { name, value } = event.target;
-    attributesToShow.includes(name)
-      ? setAttributesToShow(
-          attributesToShow.filter((attribute) => {
-            if (attribute === name) return false;
-            else return true;
-          })
-        )
-      : setAttributesToShow([...attributesToShow, name]);
 
-    console.log("value=", value);
-    console.log("name=", name);
-    console.log("in DisplaySetting tempAttributesArray=", tempAttributes);
-    console.log("in DisplaySetting attributesToShow=", attributesToShow);
+  const setAttributesToShowHelper = (name) => {
+    if (attributesToShow.includes(name)) {
+      return attributesToShow.filter((attribute) => {
+        if (attribute === name) return false;
+        return true;
+      });
+    }
+    return [...attributesToShow, name];
+  };
+  const handleDisplaySettingChange = (event) => {
+    const { name } = event.target;
+    setAttributesToShow(setAttributesToShowHelper(name));
+
     setTempAttributes(
       attributesName.filter((attribute) => {
         if (attributesToShow.includes(attribute)) return true;
-        else return false;
+        return false;
       })
     );
   };
+
   useEffect(() => {
     handleOutputImagesAttributes(tempAttributes);
   }, [tempAttributes, handleOutputImagesAttributes]);
@@ -35,7 +37,7 @@ function DisplaySetting(props) {
       {attributesName.map((attribute) => {
         return (
           <div className="setting">
-            <label for={attribute}>{attribute}</label>
+            <label htmlFor={attribute}>{attribute}</label>
             <input
               type="checkbox"
               onClick={handleDisplaySettingChange}
@@ -47,4 +49,8 @@ function DisplaySetting(props) {
     </div>
   );
 }
+DisplaySetting.propTypes = {
+  attributesName: PropTypes.arrayOf(PropTypes.string),
+  handleOutputImagesAttributes: PropTypes.func,
+};
 export default DisplaySetting;

@@ -1,14 +1,15 @@
 import React, { useMemo, useState } from "react";
-import trimmed_keypoints from "../data/trimmed_keypoints.json";
+import trimmedKeypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
 import Pagination from "./Pagination";
-import { paginate } from "../utils/Paginate";
+import paginate from "../utils/Paginate";
+
 function Table() {
   const images = useMemo(() => {
     const imageMap = new Map();
-    trimmed_keypoints.images.forEach((item) => {
+    trimmedKeypoints.images.forEach((item) => {
       imageMap.set(item.id, item);
     });
     return imageMap;
@@ -22,8 +23,6 @@ function Table() {
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
-
-  console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
   }
@@ -34,12 +33,10 @@ function Table() {
     setShowDisplaySetting(true);
   }
   function handleOutputImagesAttributes(attributesToShow) {
-    console.log("came in handle output images attributes");
     setOutputImagesAttributes(attributesToShow);
   }
   function handlePageChange(page) {
     setCurrentPage(page);
-    console.log("in handlePageChange page= ", page);
   }
   const pageImages = paginate(
     Array.from(images.values()),
@@ -56,7 +53,7 @@ function Table() {
           Sorting
         </button>
         <button className="button" onClick={handleDisplaySettingClick}>
-          Display Setting{" "}
+          Display Setting
         </button>
         <br />
         {showFilter && <Filter attributesName={attributesName} />}
@@ -73,7 +70,7 @@ function Table() {
           <thead className="thead-dark">
             <tr>
               {outputImagesAttributes.map((attribute) => {
-                return <th key={attribute}> {attribute} </th>;
+                return <th key={attribute}>{attribute} </th>;
               })}
             </tr>
           </thead>
@@ -83,7 +80,7 @@ function Table() {
                 <tr key={image.id}>
                   {outputImagesAttributes.map((attribute) => {
                     if (attribute === "coco_url" || attribute === "flickr_url")
-                      //Can use regex for dynamic url attributes for images {*_url} !!!
+                      //  Can use regex for dynamic url attributes for images {*_url} !!!
                       return (
                         <td>
                           <img
@@ -94,7 +91,7 @@ function Table() {
                           />
                         </td>
                       );
-                    else return <td> {image[attribute]} </td>;
+                    return <td> {image[attribute]} </td>;
                   })}
                 </tr>
               );
