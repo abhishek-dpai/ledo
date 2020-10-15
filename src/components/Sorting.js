@@ -12,21 +12,11 @@ function Sorting(props) {
     setShowSortinginput(true);
   };
   const handleSortingSequence = (sortingChoice) => {
-    console.log(
-      "in handleSortingSequence of sorting sortingChoice = ",
-      sortingChoice
-    );
-    console.log(
-      "in handleSortingSequence of sorting sortingSequence = ",
-      sortingSequence
-    );
-
     setSortingSequence([
       ...sortingSequence,
       { sortingAttribute: sortingChoice },
     ]);
   };
-  console.log("in sorting sortingSequence = ", sortingSequence);
 
   return (
     <div className="sorting">

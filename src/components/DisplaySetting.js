@@ -18,26 +18,19 @@ function DisplaySetting(props) {
   };
   const handleDisplaySettingChange = (event) => {
     const { name } = event.target;
-    const newAttributesToShow=(setAttributesToShowHelper(name));
-    setAttributesToShow(newAttributeToShow);
-
-
-    
+    const newAttributesToShow = setAttributesToShowHelper(name);
+    setAttributesToShow(newAttributesToShow);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const newTempAttribute = attributesName.filter((attribute) => {
       if (attributesToShow.includes(attribute)) return true;
       return false;
-    })
-    console.log("newTempAttribute",newTempAttribute)
-    setTempAttributes(
-      newTempAttribute
-    );
-  },[attributesName, attributesToShow])
+    });
+    setTempAttributes(newTempAttribute);
+  }, [attributesName, attributesToShow]);
 
   useEffect(() => {
-    console.log("handle output images",tempAttributes)
     handleOutputImagesAttributes(tempAttributes);
   }, [tempAttributes, handleOutputImagesAttributes]);
   return (

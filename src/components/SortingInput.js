@@ -6,12 +6,10 @@ function SortingInput(props) {
   const { sortingAttribute, handleSortingSequence } = props;
   function handleSortingChoiceChange(e) {
     setSortingChoice(e.target.value);
-    console.log("setting sortingChoise= ", sortingChoice);
   }
   useEffect(() => {
-    console.log("in useEffext sortingChoise= ", sortingChoice);
     handleSortingSequence(sortingChoice);
-  }, [sortingChoice, handleSortingSequence]);
+  }, [sortingChoice]);
   return (
     <form className="sorting-input">
       <div>{sortingAttribute}</div>
@@ -30,6 +28,6 @@ function SortingInput(props) {
 
 SortingInput.propTypes = {
   sortingAttribute: PropTypes.string.isRequired,
-  handleSortingSequence: PropTypes.func,
+  handleSortingSequence: PropTypes.func.isRequired,
 };
 export default SortingInput;

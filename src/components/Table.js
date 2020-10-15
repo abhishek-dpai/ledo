@@ -92,7 +92,7 @@ function Table() {
                     if (attribute === "coco_url" || attribute === "flickr_url")
                       //  Can use regex for dynamic url attributes for images {*_url} !!!
                       return (
-                        <td>
+                        <td key={image.id}>
                           <img
                             src={image[attribute]}
                             alt={attribute}
@@ -102,7 +102,7 @@ function Table() {
                         </td>
                       );
                     return (
-                      <td>
+                      <td key={image.id}>
                         {/*  */}
                         {image[attribute]}
                         {/*  */}
