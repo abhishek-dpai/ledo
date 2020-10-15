@@ -1,25 +1,19 @@
 import React, { useMemo, useState } from "react";
-import trimmed_keypoints from "../data/trimmed_keypoints.json";
+import trimmedKeypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
 import Pagination from "./Pagination";
-import Paginate, { paginate } from "./Paginate";
+import paginate from "../utils/Paginate";
+
 function Table() {
-  // You can use below imageMap to poppulate data, it wont contain any duplicate images
-  // const [filteredImages]
-  // write a function , get the result
-  // later named anything handleFilteredResult should set the filter state then use the useMemo to get the filtered images
   const images = useMemo(() => {
     const imageMap = new Map();
-    trimmed_keypoints.images.forEach((item) => {
+    trimmedKeypoints.images.forEach((item) => {
       imageMap.set(item.id, item);
     });
     return imageMap;
-  }, [trimmed_keypoints.images]); // showing warning
-  //    Line 12:6:  React Hook useMemo has an unnecessary dependency: 'trimmed_keypoints.images'. Either exclude it or remove the dependency array.
-  //    Outer scope values like 'trimmed_keypoints.images' aren't valid dependencies because mutating them doesn't re-render the component
-  //    react-hooks/exhaustive-deps
+  }, []);
   const [attributesName] = useState(Object.keys(images.values().next().value));
   const [showFilter, setShowFilter] = useState(false);
   const [showSorting, setShowSorting] = useState(false);
@@ -29,30 +23,20 @@ function Table() {
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
-
-  console.log(attributesName);
   function handleFilterClick() {
     setShowFilter(true);
-    // setShowSorting(false);
-    // setShowDisplaySetting(false);
   }
   function handleSortingClick() {
-    // setShowFilter(false);
     setShowSorting(true);
-    // setShowDisplaySetting(false);
   }
   function handleDisplaySettingClick() {
-    // setShowFilter(false);
-    // setShowSorting(false);
     setShowDisplaySetting(true);
   }
   function handleOutputImagesAttributes(attributesToShow) {
-    console.log("came in handle output images attributes");
     setOutputImagesAttributes(attributesToShow);
   }
   function handlePageChange(page) {
     setCurrentPage(page);
-    console.log("in handlePageChange page= ", page);
   }
   const pageImages = paginate(
     Array.from(images.values()),
@@ -62,15 +46,18 @@ function Table() {
   return (
     <>
       <div className="main-buttons">
-        <button className="button" onClick={handleFilterClick}>
-          {" "}
-          Filter{" "}
+        <button className="button" type="button" onClick={handleFilterClick}>
+          Filter
         </button>
-        <button className="button" onClick={handleSortingClick}>
+        <button className="button" type="button" onClick={handleSortingClick}>
           Sorting
         </button>
-        <button className="button" onClick={handleDisplaySettingClick}>
-          Display Setting{" "}
+        <button
+          className="button"
+          type="button"
+          onClick={handleDisplaySettingClick}
+        >
+          Display Setting
         </button>
         <br />
         {showFilter && <Filter attributesName={attributesName} />}
@@ -83,11 +70,17 @@ function Table() {
         )}
       </div>
       <div className="table-container">
-        <table className="table">
-          <thead>
+        <table className="table table-striped  table-bordered">
+          <thead className="thead-dark">
             <tr>
               {outputImagesAttributes.map((attribute) => {
-                return <th key={attribute}> {attribute} </th>;
+                return (
+                  <th key={attribute}>
+                    {/*  */}
+                    {attribute}
+                    {/*  */}
+                  </th>
+                );
               })}
             </tr>
           </thead>
@@ -97,18 +90,24 @@ function Table() {
                 <tr key={image.id}>
                   {outputImagesAttributes.map((attribute) => {
                     if (attribute === "coco_url" || attribute === "flickr_url")
-                      //Can use regex for dynamic url attributes for images {*_url} !!!
+                      //  Can use regex for dynamic url attributes for images {*_url} !!!
                       return (
                         <td>
                           <img
                             src={image[attribute]}
                             alt={attribute}
-                            height="200"
-                            width="200"
+                            height="100"
+                            width="100"
                           />
                         </td>
                       );
-                    else return <td> {image[attribute]} </td>;
+                    return (
+                      <td>
+                        {/*  */}
+                        {image[attribute]}
+                        {/*  */}
+                      </td>
+                    );
                   })}
                 </tr>
               );
@@ -116,7 +115,7 @@ function Table() {
           </tbody>
         </table>
         <Pagination
-          itemsCount={images.length}
+          itemsCount={images.size}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}
@@ -125,5 +124,4 @@ function Table() {
     </>
   );
 }
-
 export default Table;

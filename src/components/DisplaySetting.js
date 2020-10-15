@@ -1,42 +1,52 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "../App.css";
+
 function DisplaySetting(props) {
-  // const [displaySettingComponent, setDisplaySettingComponent] = useState("none");
   const { attributesName, handleOutputImagesAttributes } = props;
-  // const [attributesToHide, setAttributesToHide] = useState([]);
-
   const [attributesToShow, setAttributesToShow] = useState(attributesName);
+  const [tempAttributes, setTempAttributes] = useState(attributesName);
+
+  const setAttributesToShowHelper = (name) => {
+    if (attributesToShow.includes(name)) {
+      return attributesToShow.filter((attribute) => {
+        if (attribute === name) return false;
+        return true;
+      });
+    }
+    return [...attributesToShow, name];
+  };
   const handleDisplaySettingChange = (event) => {
-    const { name, value } = event.target;
+    const { name } = event.target;
+    const newAttributeToShow = setAttributesToShowHelper(name)
+    console.log("newAttributeToShow",newAttributeToShow)
+    setAttributesToShow(newAttributeToShow);
 
-    attributesToShow.includes(name) === true
-      ? setAttributesToShow(
-          attributesToShow.filter((attribute) => {
-            if (attribute === name) return false;
-            else return true;
-          })
-        )
-      : setAttributesToShow([...attributesToShow, name]);
 
-    console.log("value=", value);
-    console.log("name=", name);
-    console.log("in DisplaySetting attributesToShow=", attributesToShow);
-    //   console.log("displaySettingComponent is=", displaySettingComponent);
   };
 
-  console.log("before return attributesToShow=", attributesToShow);
-  useEffect(() => {
-    console.log("in UseEffect attributesToShow=", attributesToShow);
-    handleOutputImagesAttributes(attributesToShow);
-  }, [attributesToShow]);
+  useEffect(()=>{
+    const newTempAttribute = attributesName.filter((attribute) => {
+      if (attributesToShow.includes(attribute)) return true;
+      return false;
+    })
+    console.log("newTempAttribute",newTempAttribute)
+    setTempAttributes(
+      newTempAttribute
+    );
+  },[attributesName, attributesToShow])
 
+  useEffect(() => {
+    console.log("handle output images",tempAttributes)
+    handleOutputImagesAttributes(tempAttributes);
+  }, [tempAttributes, handleOutputImagesAttributes]);
   return (
     <div className="display-setting-container">
-      <button>Hide Columns</button>
+      <button type="button">Hide Columns</button>
       {attributesName.map((attribute) => {
         return (
           <div className="setting">
-            <label for={attribute}>{attribute}</label>
+            <label htmlFor={attribute}>{attribute}</label>
             <input
               type="checkbox"
               onClick={handleDisplaySettingChange}
@@ -48,4 +58,8 @@ function DisplaySetting(props) {
     </div>
   );
 }
+DisplaySetting.propTypes = {
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleOutputImagesAttributes: PropTypes.func.isRequired,
+};
 export default DisplaySetting;
