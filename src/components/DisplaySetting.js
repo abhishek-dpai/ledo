@@ -33,7 +33,7 @@ function DisplaySetting(props) {
   }, [tempAttributes, handleOutputImagesAttributes]);
   return (
     <div className="display-setting-container">
-      <button>Hide Columns</button>
+      <button type="button">Hide Columns</button>
       {attributesName.map((attribute) => {
         return (
           <div className="setting">

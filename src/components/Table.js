@@ -46,13 +46,17 @@ function Table() {
   return (
     <>
       <div className="main-buttons">
-        <button className="button" onClick={handleFilterClick}>
+        <button className="button" type="button" onClick={handleFilterClick}>
           Filter
         </button>
-        <button className="button" onClick={handleSortingClick}>
+        <button className="button" type="button" onClick={handleSortingClick}>
           Sorting
         </button>
-        <button className="button" onClick={handleDisplaySettingClick}>
+        <button
+          className="button"
+          type="button"
+          onClick={handleDisplaySettingClick}
+        >
           Display Setting
         </button>
         <br />
@@ -70,7 +74,13 @@ function Table() {
           <thead className="thead-dark">
             <tr>
               {outputImagesAttributes.map((attribute) => {
-                return <th key={attribute}>{attribute} </th>;
+                return (
+                  <th key={attribute}>
+                    {/*  */}
+                    {attribute}
+                    {/*  */}
+                  </th>
+                );
               })}
             </tr>
           </thead>
@@ -91,7 +101,13 @@ function Table() {
                           />
                         </td>
                       );
-                    return <td> {image[attribute]} </td>;
+                    return (
+                      <td>
+                        {/*  */}
+                        {image[attribute]}
+                        {/*  */}
+                      </td>
+                    );
                   })}
                 </tr>
               );

@@ -15,9 +15,15 @@ function Pagination(props) {
             key={page}
             className={page === currentPage ? "page-item active " : "page-item"}
           >
-            <a className="page-link" onClick={() => onPageChange(page)}>
+            <button
+              className="page-link"
+              onClick={() => onPageChange(page)}
+              onKeyPress={() => onPageChange(page)}
+              type="button"
+              tabIndex={0}
+            >
               {page}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
