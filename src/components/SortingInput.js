@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 function SortingInput(props) {
   const [sortingChoice, setSortingChoice] = useState("none");
-  const { sortingAttribute } = props;
+  const { sortingAttribute, handleSortingSequence } = props;
   function handleSortingChoiceChange(e) {
     setSortingChoice(e.target.value);
+    console.log("setting sortingChoise= ", sortingChoice);
   }
-
+  useEffect(() => {
+    console.log("in useEffext sortingChoise= ", sortingChoice);
+    handleSortingSequence(sortingChoice);
+  }, [sortingChoice, handleSortingSequence]);
   return (
     <form className="sorting-input">
       <div>{sortingAttribute}</div>
@@ -26,5 +30,6 @@ function SortingInput(props) {
 
 SortingInput.propTypes = {
   sortingAttribute: PropTypes.string.isRequired,
+  handleSortingSequence: PropTypes.func,
 };
 export default SortingInput;
