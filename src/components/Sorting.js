@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import SortingInput from "./SortingInput";
 
 function Sorting(props) {
@@ -20,4 +21,7 @@ function Sorting(props) {
     </div>
   );
 }
+Sorting.propTypes = {
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 export default Sorting;

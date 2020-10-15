@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+
 function SortingInput(props) {
   const [sortingChoice, setSortingChoice] = useState("none");
   const { sortingAttribute } = props;
   function handleSortingChoiceChange(e) {
     setSortingChoice(e.target.value);
-
-    console.log("sortingChoice is=", sortingChoice);
   }
 
   return (
@@ -23,4 +23,8 @@ function SortingInput(props) {
     </form>
   );
 }
+
+SortingInput.propTypes = {
+  sortingAttribute: PropTypes.string.isRequired,
+};
 export default SortingInput;

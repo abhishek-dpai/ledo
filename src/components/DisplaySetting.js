@@ -50,7 +50,7 @@ function DisplaySetting(props) {
   );
 }
 DisplaySetting.propTypes = {
-  attributesName: PropTypes.arrayOf(PropTypes.string),
-  handleOutputImagesAttributes: PropTypes.func,
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleOutputImagesAttributes: PropTypes.func.isRequired,
 };
 export default DisplaySetting;

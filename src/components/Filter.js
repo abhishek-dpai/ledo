@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function Filter(props) {
   const [filter, setFilter] = useState("none");
@@ -16,4 +17,7 @@ function Filter(props) {
     </div>
   );
 }
+Filter.propTypes = {
+  attributesName: PropTypes.string.isRequired,
+};
 export default Filter;
