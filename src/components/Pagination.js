@@ -1,12 +1,12 @@
 import React from "react";
-import _ from "lodash";
+import PropTypes from "prop-types";
+
 function Pagination(props) {
   const { itemsCount, pageSize, currentPage, onPageChange } = props;
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
-  const pages = _.range(1, pagesCount + 1);
-  console.log("currentPage =", currentPage);
-  console.log("pagesCount=", pagesCount);
+  // array methods fill
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
   return (
     <nav>
       <ul className="pagination">
@@ -15,13 +15,25 @@ function Pagination(props) {
             key={page}
             className={page === currentPage ? "page-item active " : "page-item"}
           >
-            <a className="page-link" onClick={() => onPageChange(page)}>
+            <button
+              className="page-link"
+              onClick={() => onPageChange(page)}
+              onKeyPress={() => onPageChange(page)}
+              type="button"
+              tabIndex={0}
+            >
               {page}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
     </nav>
   );
 }
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
 export default Pagination;

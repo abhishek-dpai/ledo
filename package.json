@@ -7,8 +7,11 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.5.2",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.12.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.10",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
@@ -17,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/* src/**/**"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +39,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.11.0",
-    "eslint-plugin-react": "^7.21.4"
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2"
   }
 }
