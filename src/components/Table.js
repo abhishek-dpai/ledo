@@ -48,10 +48,14 @@ function Table() {
       console.log("sortingAttribute=", sortingAttribute);
       console.log("sortingChoice=", sortingChoice);
       console.log("images=", images);
-      setOutputImages(
-        tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
-      );
-
+      if (sortingChoice === "ascending")
+        setOutputImages(
+          tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
+        );
+      else
+        setOutputImages(
+          tempArray.sort((a, b) => b.sortingAttribute - a.sortingAttribute)
+        );
       console.log("after sorting sortedImages=", outputImages);
     },
     [setOutputImages, images, outputImages]
