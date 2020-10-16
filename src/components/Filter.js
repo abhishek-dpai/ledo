@@ -6,11 +6,12 @@ function Filter(props) {
   const [filter, setFilter] = useState("none");
   const [showFilterInput, setShowFilterInput] = useState(false);
 
-  const { attributesName } = props;
+  const { attributesName, performFiltering } = props;
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
     setShowFilterInput(true);
   };
+
   return (
     <div className="filter-choice">
       <select value={filter} onChange={(e) => handleFilterChange(e)}>
@@ -18,7 +19,9 @@ function Filter(props) {
           return <option value={attribute}>{attribute}</option>;
         })}
       </select>
-      {showFilterInput && <FilterInput filter={filter} />}
+      {showFilterInput && (
+        <FilterInput filter={filter} performFiltering={performFiltering} />
+      )}
     </div>
   );
 }

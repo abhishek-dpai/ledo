@@ -73,6 +73,20 @@ function Table() {
 
   //   console.log("after sorting sortedImages=", outputImages);
   // }
+
+  const performFiltering = (filter, filterChoice, value) => {
+    console.log("in Table filterchoice=", filterChoice);
+    console.log(("filter=", filter));
+    console.log("value=", value);
+
+    const tempArray = outputImages.filter((image) => {
+      if (image[filter] === value)
+        // initially only testing for license
+        return true;
+      return false;
+    });
+    setOutputImages(tempArray);
+  };
   console.log("before return outputImages=", outputImages);
 
   return (
@@ -92,7 +106,12 @@ function Table() {
           Display Setting
         </button>
         <br />
-        {showFilter && <Filter attributesName={attributesName} />}
+        {showFilter && (
+          <Filter
+            attributesName={attributesName}
+            performFiltering={performFiltering}
+          />
+        )}
         {showSorting && (
           <Sorting
             attributesName={attributesName}
