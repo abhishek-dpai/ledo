@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import trimmedKeypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
@@ -21,6 +21,7 @@ function Table() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
   const [outputImages, setOutputImages] = useState(Array.from(images.values()));
+  const [tempArray, setTempArray] = useState([]);
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
@@ -79,16 +80,18 @@ function Table() {
     console.log(("filter=", filter));
     console.log("value=", value);
 
-    const tempArray = outputImages.filter((image) => {
-      if (image[filter] === value)
+    setTempArray(
+      outputImages.filter((image) => {
         // initially only testing for license
-        return true;
-      return false;
-    });
-    setOutputImages(tempArray);
+        if (image[filter] === Number(value)) return true;
+        return false;
+      })
+    );
   };
   console.log("before return outputImages=", outputImages);
-
+  useEffect(() => {
+    if (tempArray.length !== 0) setOutputImages(tempArray);
+  }, [tempArray, setOutputImages]);
   return (
     <>
       <div className="main-buttons">
