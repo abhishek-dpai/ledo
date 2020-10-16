@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function FilterInput(props) {
   const [filterChoice, setFilterChoice] = useState("null");
-  const [value, setValue] = useState("null");
+  const [value, setValue] = useState("0");
   const { filter, performFiltering } = props;
   function handleFilterChoiceChange(e) {
     setFilterChoice(e.target.value);
