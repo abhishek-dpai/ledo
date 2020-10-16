@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import trimmedKeypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
@@ -19,7 +19,8 @@ function Table() {
   const [showSorting, setShowSorting] = useState(false);
   const [showDisplaySetting, setShowDisplaySetting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(5);
+  const [pageSize] = useState(4);
+  const [outputImages, setOutputImages] = useState(Array.from(images.values()));
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
@@ -38,11 +39,38 @@ function Table() {
   function handlePageChange(page) {
     setCurrentPage(page);
   }
-  const pageImages = paginate(
-    Array.from(images.values()),
-    currentPage,
-    pageSize
+  const pageImages = paginate(outputImages, currentPage, pageSize);
+  const performSorting = useCallback(
+    (sortingAttribute, sortingChoice) => {
+      const tempArray = [...Array.from(images.values())];
+      console.log("tempArray=", tempArray);
+      console.log("outputImages=", outputImages);
+      console.log("sortingAttribute=", sortingAttribute);
+      console.log("sortingChoice=", sortingChoice);
+      console.log("images=", images);
+      setOutputImages(
+        tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
+      );
+
+      console.log("after sorting sortedImages=", outputImages);
+    },
+    [setOutputImages, images, outputImages]
   );
+  // function performSorting(sortingAttribute, sortingChoice) {
+  //   const tempArray = [...Array.from(images.values())];
+  //   console.log("tempArray=", tempArray);
+  //   console.log("outputImages=", outputImages);
+  //   console.log("sortingAttribute=", sortingAttribute);
+  //   console.log("sortingChoice=", sortingChoice);
+  //   console.log("images=", images);
+  //   setOutputImages(
+  //     tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
+  //   );
+
+  //   console.log("after sorting sortedImages=", outputImages);
+  // }
+  console.log("before return outputImages=", outputImages);
+
   return (
     <>
       <div className="main-buttons">
@@ -61,7 +89,12 @@ function Table() {
         </button>
         <br />
         {showFilter && <Filter attributesName={attributesName} />}
-        {showSorting && <Sorting attributesName={attributesName} />}
+        {showSorting && (
+          <Sorting
+            attributesName={attributesName}
+            performSorting={performSorting}
+          />
+        )}
         {showDisplaySetting && (
           <DisplaySetting
             attributesName={attributesName}
@@ -74,13 +107,7 @@ function Table() {
           <thead className="thead-dark">
             <tr>
               {outputImagesAttributes.map((attribute) => {
-                return (
-                  <th key={attribute}>
-                    {/*  */}
-                    {attribute}
-                    {/*  */}
-                  </th>
-                );
+                return <th key={attribute}>{attribute}</th>;
               })}
             </tr>
           </thead>
@@ -92,7 +119,7 @@ function Table() {
                     if (attribute === "coco_url" || attribute === "flickr_url")
                       //  Can use regex for dynamic url attributes for images {*_url} !!!
                       return (
-                        <td key={image.id}>
+                        <td key={`${attribute}_${image.id}`}>
                           <img
                             src={image[attribute]}
                             alt={attribute}
@@ -102,10 +129,8 @@ function Table() {
                         </td>
                       );
                     return (
-                      <td key={image.id}>
-                        {/*  */}
+                      <td key={`${attribute}_${image.id}`}>
                         {image[attribute]}
-                        {/*  */}
                       </td>
                     );
                   })}

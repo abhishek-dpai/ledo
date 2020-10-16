@@ -9,7 +9,7 @@ function SortingInput(props) {
   }
   useEffect(() => {
     handleSortingSequence(sortingChoice);
-  }, [sortingChoice]);
+  }, [sortingChoice, handleSortingSequence]);
   return (
     <form className="sorting-input">
       <div>{sortingAttribute}</div>
