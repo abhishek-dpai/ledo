@@ -15,6 +15,7 @@ function Filter(props) {
   return (
     <div className="filter-choice">
       <select value={filter} onChange={(e) => handleFilterChange(e)}>
+        <option value="none">None</option>;
         {attributesName.map((attribute) => {
           return <option value={attribute}>{attribute}</option>;
         })}

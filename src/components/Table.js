@@ -41,39 +41,28 @@ function Table() {
     setCurrentPage(page);
   }
   const pageImages = paginate(outputImages, currentPage, pageSize);
-  const performSorting = useCallback(
-    (sortingAttribute, sortingChoice) => {
-      const tempArray = [...Array.from(images.values())];
-      console.log("tempArray=", tempArray);
-      console.log("outputImages=", outputImages);
-      console.log("sortingAttribute=", sortingAttribute);
-      console.log("sortingChoice=", sortingChoice);
-      console.log("images=", images);
-      if (sortingChoice === "ascending")
-        setOutputImages(
-          tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
-        );
-      else
-        setOutputImages(
-          tempArray.sort((a, b) => b.sortingAttribute - a.sortingAttribute)
-        );
-      console.log("after sorting sortedImages=", outputImages);
-    },
-    [setOutputImages, images, outputImages]
-  );
-  // function performSorting(sortingAttribute, sortingChoice) {
-  //   const tempArray = [...Array.from(images.values())];
-  //   console.log("tempArray=", tempArray);
-  //   console.log("outputImages=", outputImages);
-  //   console.log("sortingAttribute=", sortingAttribute);
-  //   console.log("sortingChoice=", sortingChoice);
-  //   console.log("images=", images);
-  //   setOutputImages(
-  //     tempArray.sort((a, b) => a.sortingAttribute - b.sortingAttribute)
-  //   );
 
-  //   console.log("after sorting sortedImages=", outputImages);
-  // }
+  function performSorting(sortingAttribute, sortingChoice) {
+    const tempArray = [...Array.from(images.values())];
+    console.log("tempArray=", tempArray);
+    console.log("outputImages=", outputImages);
+    console.log("sortingAttribute=", sortingAttribute);
+    console.log("sortingChoice=", sortingChoice);
+    console.log("images=", images);
+    if (sortingChoice === "ascending")
+      setOutputImages(
+        tempArray.sort((a, b) =>
+          a[sortingAttribute] < b[sortingAttribute] === true ? -1 : 1
+        )
+      );
+    else
+      setOutputImages(
+        tempArray.sort((a, b) => b[sortingAttribute] - a[sortingAttribute])
+      );
+    console.log("tempArray after soring=", tempArray);
+
+    console.log("after sorting sortedImages=", outputImages);
+  }
 
   const performFiltering = (filter, filterChoice, value) => {
     console.log("in Table filterchoice=", filterChoice);
@@ -89,9 +78,6 @@ function Table() {
     );
   };
   console.log("before return outputImages=", outputImages);
-  useEffect(() => {
-    if (tempArray.length !== 0) setOutputImages(tempArray);
-  }, [tempArray, setOutputImages]);
   return (
     <>
       <div className="main-buttons">

@@ -33,6 +33,7 @@
   margin: 20px;
 }
 .sorting-input {
+  position: relative;
   margin: 20px;
   color: black;
   background-color: rgb(128, 128, 120);
@@ -45,6 +46,7 @@
 }
 
 .filter-input {
+  position: relative;
   margin: 20px;
   color: black;
   background-color: rgb(128, 128, 120);
@@ -54,4 +56,10 @@
   justify-content: space-around;
   height: 250px;
   width: 250px;
+}
+.input-close-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: red;
 }

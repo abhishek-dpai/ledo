@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 
 function SortingInput(props) {
   const [sortingChoice, setSortingChoice] = useState("none");
   const { sortingAttribute, handleSortingSequence } = props;
+
   function handleSortingChoiceChange(e) {
     setSortingChoice(e.target.value);
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
   }
   useEffect(() => {
     handleSortingSequence(sortingChoice);
@@ -22,6 +26,7 @@ function SortingInput(props) {
         <option value="descending">Descending</option>
       </select>
       <input type="submit" value="Submit" />
+      <button className="input-close-button">X</button>
     </form>
   );
 }

@@ -14,7 +14,7 @@ function FilterInput(props) {
     console.log("in FilterInput useEffect filterchoice=", filterChoice);
     console.log(("filter=", filter));
     console.log("value=", value);
-    if (filterChoice !== "null" && value !== "none")
+    if (filterChoice !== "null" && value !== "0")
       performFiltering(filter, filterChoice, value);
   }, [filter, filterChoice, value]);
   return (
@@ -35,6 +35,7 @@ function FilterInput(props) {
       </select>
       <input type="text" value={value} onChange={handleInputValue}></input>
       <input type="submit" value="Submit" />
+      <button className="input-close-button">X</button>
     </form>
   );
 }

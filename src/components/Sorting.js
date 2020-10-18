@@ -22,11 +22,12 @@ function Sorting(props) {
     console.log("in useEffect ofsorting sortingChoice=", sortingChoice);
     if (sortingChoice !== "none")
       performSorting(sortingAttribute, sortingChoice);
-  }, [sortingChoice, sortingAttribute, performSorting]);
+  }, [sortingChoice, sortingAttribute]);
 
   return (
     <div className="sorting">
       <select value={sortingAttribute} onChange={(e) => handleSortingChange(e)}>
+        <option value="none">None</option>;
         {attributesName.map((attribute) => {
           return (
             <option
