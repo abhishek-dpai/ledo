@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function FilterInput(props) {
   const [filterChoice, setFilterChoice] = useState("null");
-  const [value, setValue] = useState("0");
+  const [value, setValue] = useState(0);
   const { filter, performFiltering } = props;
   function handleFilterChoiceChange(e) {
     setFilterChoice(e.target.value);
@@ -14,7 +14,7 @@ function FilterInput(props) {
     console.log("in FilterInput useEffect filterchoice=", filterChoice);
     console.log(("filter=", filter));
     console.log("value=", value);
-    if (filterChoice !== "null" && value !== "0")
+    if (filterChoice !== "null" && value !== 0)
       performFiltering(filter, filterChoice, value);
   }, [filter, filterChoice, value]);
   return (

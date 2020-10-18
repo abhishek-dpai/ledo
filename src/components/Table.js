@@ -21,7 +21,6 @@ function Table() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
   const [outputImages, setOutputImages] = useState(Array.from(images.values()));
-  const [tempArray, setTempArray] = useState([]);
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
@@ -68,14 +67,56 @@ function Table() {
     console.log("in Table filterchoice=", filterChoice);
     console.log(("filter=", filter));
     console.log("value=", value);
+    let tempArray;
+    switch (filterChoice) {
+      case "equal":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] == value) return true;
+          return false;
+        });
+        break;
+      case "less-than":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] < value) return true;
+          return false;
+        });
+        break;
+      case "less-than-or-equal":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] <= value) return true;
+          return false;
+        });
+        break;
+      case "greater-than":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] > value) return true;
+          return false;
+        });
+        break;
+      case "greater-than-or-equal":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] >= value) return true;
+          return false;
+        });
+        break;
+      case "not-equal":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter] != value) return true;
+          return false;
+        });
+        break;
+      case "contains":
+        tempArray = outputImages.filter((image) => {
+          if (image[filter].includes(value)) return true;
+          return false;
+        });
+        break;
+      default:
+        console.log("In default something is wrong");
+        break;
+    }
 
-    setTempArray(
-      outputImages.filter((image) => {
-        // initially only testing for license
-        if (image[filter] === Number(value)) return true;
-        return false;
-      })
-    );
+    setOutputImages(tempArray);
   };
   console.log("before return outputImages=", outputImages);
   return (
