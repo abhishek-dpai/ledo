@@ -17,7 +17,11 @@ function Filter(props) {
       <select value={filter} onChange={(e) => handleFilterChange(e)}>
         <option value="none">None</option>;
         {attributesName.map((attribute) => {
-          return <option value={attribute}>{attribute}</option>;
+          return (
+            <option value={attribute} key={`${attribute}`}>
+              {attribute}
+            </option>
+          );
         })}
       </select>
       {showFilterInput && (
@@ -27,6 +31,6 @@ function Filter(props) {
   );
 }
 Filter.propTypes = {
-  attributesName: PropTypes.string.isRequired,
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 export default Filter;

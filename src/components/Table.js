@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import trimmedKeypoints from "../data/trimmed_keypoints.json";
 import Filter from "./Filter";
 import Sorting from "./Sorting";
 import DisplaySetting from "./DisplaySetting";
 import Pagination from "./Pagination";
 import paginate from "../utils/Paginate";
+import getFilteredArray from "../utils/getFilteredArray";
 
 function Table() {
   const images = useMemo(() => {
@@ -21,6 +22,8 @@ function Table() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
   const [outputImages, setOutputImages] = useState(Array.from(images.values()));
+  const [origImages] = useState(Array.from(images.values()));
+
   const [outputImagesAttributes, setOutputImagesAttributes] = useState(
     Object.keys(images.values().next().value)
   );
@@ -43,11 +46,6 @@ function Table() {
 
   function performSorting(sortingAttribute, sortingChoice) {
     const tempArray = [...Array.from(images.values())];
-    console.log("tempArray=", tempArray);
-    console.log("outputImages=", outputImages);
-    console.log("sortingAttribute=", sortingAttribute);
-    console.log("sortingChoice=", sortingChoice);
-    console.log("images=", images);
     if (sortingChoice === "ascending")
       setOutputImages(
         tempArray.sort((a, b) =>
@@ -58,67 +56,19 @@ function Table() {
       setOutputImages(
         tempArray.sort((a, b) => b[sortingAttribute] - a[sortingAttribute])
       );
-    console.log("tempArray after soring=", tempArray);
-
-    console.log("after sorting sortedImages=", outputImages);
   }
 
   const performFiltering = (filter, filterChoice, value) => {
-    console.log("in Table filterchoice=", filterChoice);
-    console.log(("filter=", filter));
-    console.log("value=", value);
-    let tempArray;
-    switch (filterChoice) {
-      case "equal":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] == value) return true;
-          return false;
-        });
-        break;
-      case "less-than":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] < value) return true;
-          return false;
-        });
-        break;
-      case "less-than-or-equal":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] <= value) return true;
-          return false;
-        });
-        break;
-      case "greater-than":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] > value) return true;
-          return false;
-        });
-        break;
-      case "greater-than-or-equal":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] >= value) return true;
-          return false;
-        });
-        break;
-      case "not-equal":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter] != value) return true;
-          return false;
-        });
-        break;
-      case "contains":
-        tempArray = outputImages.filter((image) => {
-          if (image[filter].includes(value)) return true;
-          return false;
-        });
-        break;
-      default:
-        console.log("In default something is wrong");
-        break;
-    }
-
+    setOutputImages(origImages);
+    let tempArray = getFilteredArray(
+      filter,
+      filterChoice,
+      value,
+      outputImages,
+      origImages
+    );
     setOutputImages(tempArray);
   };
-  console.log("before return outputImages=", outputImages);
   return (
     <>
       <div className="main-buttons">
