@@ -1,24 +1,50 @@
-import React, { useState } from "react";
-function Sorting(props) {
-  const [sorting, setSorting] = useState("none");
-  // const [sortingComponent, setSortingComponent] = useState("none");
-  const { attributesName } = props;
-  const handleSortingChange = (event) => {
-    setSorting(event.target.value);
-    console.log(event.target.value);
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import SortingInput from "./SortingInput";
 
-    console.log("sorting is=", sorting);
-    //   console.log("sortingComponent is=", sortingComponent);
+function Sorting(props) {
+  const [sortingAttribute, setSortingAttribute] = useState("none");
+  const [sortingChoice, setSortingChoice] = useState("none");
+  const [showSortinginput, setShowSortinginput] = useState(false);
+  const { attributesName, performSorting } = props;
+  const handleSortingChange = (event) => {
+    setSortingAttribute(event.target.value);
+    setShowSortinginput(true);
   };
-  console.log("In sorting component sorting=", sorting);
+  const handleSortingSequence = (tempSortingChoice) => {
+    setSortingChoice(tempSortingChoice);
+  };
+  useEffect(() => {
+    if (sortingChoice !== "none")
+      performSorting(sortingAttribute, sortingChoice);
+  }, [sortingChoice, sortingAttribute]);
+
   return (
     <div className="sorting">
-      <select value={sorting} onChange={(e) => handleSortingChange(e)}>
+      <select value={sortingAttribute} onChange={(e) => handleSortingChange(e)}>
+        <option value="none">None</option>
         {attributesName.map((attribute) => {
-          return <option value={attribute}>{attribute}</option>;
+          return (
+            <option
+              value={attribute}
+              key={`${sortingAttribute}_${Math.random()}`}
+            >
+              {attribute}
+            </option>
+          );
         })}
       </select>
+      {showSortinginput && (
+        <SortingInput
+          sortingAttribute={sortingAttribute}
+          handleSortingSequence={handleSortingSequence}
+        />
+      )}
     </div>
   );
 }
+Sorting.propTypes = {
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  performSorting: PropTypes.func.isRequired,
+};
 export default Sorting;

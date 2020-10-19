@@ -1,13 +1,13 @@
 .App {
   text-align: center;
-  background-color: #8cbdc5;
+  background-color: #617a67;
 }
 .table-container {
   margin-left: 10px;
   overflow: scroll;
   height: 80vh;
   width: 98%;
-  background-color: cornsilk;
+  background-color: white;
 }
 .main-buttons {
   text-align: left;
@@ -31,4 +31,35 @@
 .sorting {
   color: blue;
   margin: 20px;
+}
+.sorting-input {
+  position: relative;
+  margin: 20px;
+  color: black;
+  background-color: rgb(128, 128, 120);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 120px;
+  width: 120px;
+}
+
+.filter-input {
+  position: relative;
+  margin: 20px;
+  color: black;
+  background-color: rgb(128, 128, 120);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 250px;
+  width: 250px;
+}
+.input-close-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: red;
 }

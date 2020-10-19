@@ -14,3 +14,8 @@ export default App;
 // Why handle filter not working properly in sequence
 // Discuss your approach for filter and all
 // What you have used to show Filter option in the input ans:- custom drop down
+
+// table UI styles dribble for styles
+// airBNB standard for eslint
+
+// react  context to pass

@@ -1,57 +1,37 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import FilterInput from "./FilterInput";
+
 function Filter(props) {
-  console.log("props are", props);
   const [filter, setFilter] = useState("none");
-  const { attributesName } = props;
-  console.log("attributesName in Filter =", attributesName);
-  //   const [filterComponent, setFilterComponent] = useState("none");
+  const [showFilterInput, setShowFilterInput] = useState(false);
+
+  const { attributesName, performFiltering } = props;
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
-    console.log(event.target.value);
-
-    console.log("filter is=", filter);
-    // console.log("filterComponent is=", filterComponent);
+    setShowFilterInput(true);
   };
-  console.log("In Filter component", filter);
+
   return (
     <div className="filter-choice">
       <select value={filter} onChange={(e) => handleFilterChange(e)}>
+        <option value="none">None</option>
         {attributesName.map((attribute) => {
-          return <option value={attribute}>{attribute}</option>;
+          return (
+            <option value={attribute} key={`${attribute}`}>
+              {attribute}
+            </option>
+          );
         })}
       </select>
+      {showFilterInput && (
+        <FilterInput filter={filter} performFiltering={performFiltering} />
+      )}
     </div>
   );
 }
+Filter.propTypes = {
+  attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  performFiltering: PropTypes.func.isRequired,
+};
 export default Filter;
-
-// switch (filter) {
-//   case "file_name":
-//     setFilterComponent("FileNameFilter");
-//     break;
-//   case "coco_url":
-//     setFilterComponent("CocoUrlFilter");
-//     break;
-
-//   case "height":
-//     setFilterComponent("HeightFilter");
-//     break;
-
-//   case "width":
-//     setFilterComponent("WidthFilter");
-//     break;
-//   case "date_captures":
-//     setFilterComponent("DateCaptures");
-//     break;
-
-//   case "flikr_url":
-//     setFilterComponent("FlikrUrlFilter");
-//     break;
-
-//   case "id":
-//     setFilterComponent("IdFilter");
-//     break;
-//   default:
-//     console.log("reached in default in filter switch case");
-//     break;
-// }
