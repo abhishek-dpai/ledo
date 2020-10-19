@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import FilterInput from "./FilterInput";
 import PropTypes from "prop-types";
+import FilterInput from "./FilterInput";
 
 function Filter(props) {
   const [filter, setFilter] = useState("none");
@@ -15,7 +15,7 @@ function Filter(props) {
   return (
     <div className="filter-choice">
       <select value={filter} onChange={(e) => handleFilterChange(e)}>
-        <option value="none">None</option>;
+        <option value="none">None</option>
         {attributesName.map((attribute) => {
           return (
             <option value={attribute} key={`${attribute}`}>
@@ -32,5 +32,6 @@ function Filter(props) {
 }
 Filter.propTypes = {
   attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  performFiltering: PropTypes.func.isRequired,
 };
 export default Filter;

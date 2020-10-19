@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 function FilterInput(props) {
   const [filterChoice, setFilterChoice] = useState("null");
@@ -11,9 +12,6 @@ function FilterInput(props) {
     setValue(e.target.value);
   }
   useEffect(() => {
-    console.log("in FilterInput useEffect filterchoice=", filterChoice);
-    console.log(("filter=", filter));
-    console.log("value=", value);
     if (filterChoice !== "null" && value !== 0)
       performFiltering(filter, filterChoice, value);
   }, [filter, filterChoice, value]);
@@ -39,4 +37,8 @@ function FilterInput(props) {
     </form>
   );
 }
+FilterInput.propTypes = {
+  filter: PropTypes.string.isRequired,
+  performFiltering: PropTypes.func.isRequired,
+};
 export default FilterInput;

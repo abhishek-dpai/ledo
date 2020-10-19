@@ -12,14 +12,9 @@ function Sorting(props) {
     setShowSortinginput(true);
   };
   const handleSortingSequence = (tempSortingChoice) => {
-    console.log(
-      "handleSortingSequence of sorting tempSortingChoice=",
-      tempSortingChoice
-    );
     setSortingChoice(tempSortingChoice);
   };
   useEffect(() => {
-    console.log("in useEffect ofsorting sortingChoice=", sortingChoice);
     if (sortingChoice !== "none")
       performSorting(sortingAttribute, sortingChoice);
   }, [sortingChoice, sortingAttribute]);
@@ -27,7 +22,7 @@ function Sorting(props) {
   return (
     <div className="sorting">
       <select value={sortingAttribute} onChange={(e) => handleSortingChange(e)}>
-        <option value="none">None</option>;
+        <option value="none">None</option>
         {attributesName.map((attribute) => {
           return (
             <option
@@ -50,5 +45,6 @@ function Sorting(props) {
 }
 Sorting.propTypes = {
   attributesName: PropTypes.arrayOf(PropTypes.string).isRequired,
+  performSorting: PropTypes.func.isRequired,
 };
 export default Sorting;

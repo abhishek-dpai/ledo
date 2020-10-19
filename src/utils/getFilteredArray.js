@@ -48,7 +48,6 @@ function getFilteredArray(
     case "contains":
       tempArray = outputImages.filter((image) => {
         if (image[filter].toString().includes(value)) return true;
-
         return false;
       });
       break;
