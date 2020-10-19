@@ -8,9 +8,7 @@ function SortingInput(props) {
   function handleSortingChoiceChange(e) {
     setSortingChoice(e.target.value);
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+
   useEffect(() => {
     handleSortingSequence(sortingChoice);
   }, [sortingChoice, handleSortingSequence]);

@@ -49,7 +49,7 @@ function Table() {
     if (sortingChoice === "ascending")
       setOutputImages(
         tempArray.sort((a, b) =>
-          a[sortingAttribute] < b[sortingAttribute] === true ? -1 : 1
+          a[sortingAttribute] < b[sortingAttribute] ? -1 : 1
         )
       );
     else
@@ -143,7 +143,7 @@ function Table() {
           </tbody>
         </table>
         <Pagination
-          itemsCount={images.size}
+          itemsCount={outputImages.length}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}

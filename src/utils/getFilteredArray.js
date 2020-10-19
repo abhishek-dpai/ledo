@@ -6,12 +6,12 @@ function getFilteredArray(
   origImages
 ) {
   let tempArray = outputImages;
-
+  if (!isNaN(value)) value = Number(value);
   console.log("tempArray in funct befre=", tempArray);
   switch (filterChoice) {
     case "equal":
       tempArray = outputImages.filter((image) => {
-        if (image[filter] == value) return true;
+        if (image[filter] === value) return true;
         return false;
       });
       break;
@@ -41,7 +41,7 @@ function getFilteredArray(
       break;
     case "not-equal":
       tempArray = outputImages.filter((image) => {
-        if (image[filter] != value) return true;
+        if (image[filter] !== value) return true;
         return false;
       });
       break;
